@@ -1,5 +1,5 @@
 import data from './data/pokemon/pokemon.js';
-import {filterPokemonType, filterPokemonGen, filterPokemonName } from "./data.js"
+import {filterPokemonType, filterPokemonGen, filterPokemonName, checker} from "./data.js"
 export let s = document.getElementById("search");
 export const children = document.getElementById("pokemons").children;
 export const picked = document.getElementById("type");
@@ -8,6 +8,7 @@ export const gene = document.getElementById("gen");
 export const gens = document.getElementById("gen");
 export const name = document.getElementById("FilterBtn");
 export const input = document.getElementById("search").value;
+let pokenames ="";
 export function webpage(){
   let counter = -1;
   let bp = ""
@@ -35,6 +36,14 @@ export function webpage(){
 }
 let bod = document.getElementById("website");
 bod.addEventListener("load", webpage());
-gene.addEventListener("change", filterPokemonGen);
-name.addEventListener("click", filterPokemonName);
-type.addEventListener("change", filterPokemonType);
+gene.addEventListener("change", event => {
+  event.preventDefault() 
+  filterPokemonGen(gen)});
+
+name.addEventListener("click", event => {
+  event.preventDefault() 
+  filterPokemonName(s);});
+
+type.addEventListener("change", event => {
+  event.preventDefault() 
+  filterPokemonType(picked)});

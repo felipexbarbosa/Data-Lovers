@@ -1,5 +1,6 @@
-import {webpage, children, picked, type, gene, gens, name, input, s} from "./main.js"
-export function filterPokemonType(){
+import {webpage, children} from "./main.js"
+export let checker=[];
+export function filterPokemonType(picked){
     let ids = [];
   for (var i = 0, len = children.length ; i < len; i++) {
     ids.push(children[i].id);
@@ -9,14 +10,16 @@ export function filterPokemonType(){
     for (let i = 0; i < 251; i++) {
         counter += 1;
         if(ids[counter].includes(picked.value)){
-            console.log("hi");
+            console.log(ids.counter);
+            
         }else{
-            children[counter].classList.add("invisible");
+        children[counter].classList.add("invisible");
         }
+
 }
 }
 
-export function filterPokemonName(){
+export function filterPokemonName(s){
     let ids = [];
     console.log(s.value);
   for (var i = 0, len = children.length ; i < len; i++) {
@@ -33,10 +36,10 @@ export function filterPokemonName(){
 }
 }
 
-export function filterPokemonGen(){
+export function filterPokemonGen(gen){
     let ids = [];  
 
-    console.log(gens.value);
+    console.log(gen.value);
 
   for (var i = 0, len = children.length ; i < len; i++) {
     ids.push(children[i].id);
