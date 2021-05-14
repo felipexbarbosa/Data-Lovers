@@ -1,49 +1,59 @@
 import data from './data/pokemon/pokemon.js';
-import {filterPokemonType, filterPokemonGen, filterPokemonName, checker} from "./data.js"
-export let s = document.getElementById("search");
-export const children = document.getElementById("pokemons").children;
-export const picked = document.getElementById("type");
-export const type = document.getElementById("type");
-export const gene = document.getElementById("gen");
-export const gens = document.getElementById("gen");
-export const name = document.getElementById("FilterBtn");
-export const input = document.getElementById("search").value;
-let pokenames ="";
-export function webpage(){
-  let counter = -1;
-  let bp = ""
-  let body = document.getElementById("pokemons");
+import {filterPokemonName, filterPokemonType, filterPokemonGeneration} from "./data.js"
+
+const type = document.getElementById("type");
+const generation = document.getElementById("generation");
+const name = document.getElementById("FilterBtn");
+const input = document.getElementById("search");
+
+const pokemonList = data.pokemon;
+
+export function pageRender(pokemons){
+  let pokemonCards = ""
+  const cardsSection = document.getElementById("pokemons");
   
 
-  for (let i = 0; i < 251; i++) {
-    counter += 1;
-    let pokeName = data.pokemon[counter].name;
-    let pokeType = data.pokemon[counter].type;
-    let pokeGen = data.pokemon[counter].generation.name;
+  for (let i = 0; i < pokemons.length; i++) {
+    let pokeName = pokemons[i].name;
+    let pokeType = pokemons[i].type;
+    let pokeGen = pokemons[i].generation.name;
 
 
-    bp = bp + `<div class="card" id="card ${pokeName} ${pokeType} ${pokeGen}">
-    <h1 id="pokemonName" class="pokename center"> ${data.pokemon[counter].name}</h1>
-    <img height="100px" width ="100px" class="center" src=${data.pokemon[counter].img}>
-    <h2 class="pokedes center">${data.pokemon[counter].num}</h2>
-    <h2 class="pokedes center">${data.pokemon[counter].size.weight}</h2>
-    <h2 class="pokedes center">${data.pokemon[counter].type}</h2>
+    pokemonCards = pokemonCards + `<div class="card" id="card ${pokeName} ${pokeType} ${pokeGen}">
+    <h1 id="pokemonName" class="pokename center"> ${pokemons[i].name}</h1>
+    <img height="100px" width ="100px" class="center" src=${pokemons[i].img}>
+    <h2 class="pokedes center">${pokemons[i].num}</h2>
+    <h2 class="pokedes center">${pokemons[i].size.weight}</h2>
+    <h2 class="pokedes center">${pokemons[i].type}</h2>
     </div>
     `
-    body.innerHTML = bp
+
+    cardsSection.innerHTML = pokemonCards
 
   }
 }
-let bod = document.getElementById("website");
-bod.addEventListener("load", webpage());
-gene.addEventListener("change", event => {
+
+pageRender(pokemonList);
+generation.addEventListener("change", event => {
   event.preventDefault() 
-  filterPokemonGen(gen)});
+  console.log(generation);
+  console.log(generation.value);
+  const filteredPokemons = filterPokemonGeneration(pokemonList, generation.value);
+  pageRender(filteredPokemons);
+
+
+});
 
 name.addEventListener("click", event => {
   event.preventDefault() 
-  filterPokemonName(s);});
+  const filteredPokemons = filterPokemonName(pokemonList, input.value);
+  pageRender(filteredPokemons);
+});
 
 type.addEventListener("change", event => {
   event.preventDefault() 
-  filterPokemonType(picked)});
+  const filteredPokemons = filterPokemonType(pokemonList, type.value);
+  pageRender(filteredPokemons);
+
+});
+
